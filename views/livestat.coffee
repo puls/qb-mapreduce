@@ -1,6 +1,7 @@
 module.exports =
   map: (doc) ->
     to_id = (name) -> name.toLowerCase().replace /[^a-z0-9]+/g, '_'
+    numeric_id = (id) -> if id.indexOf '_' >= 0 then id.split('_')[1] else id
     if doc.type
       if doc.type is 'game' and doc.playersEntered
         emit ['scores', doc.bracket, doc.round, to_id(doc.team1.name), to_id(doc.team2.name), doc.team1.points, doc.team2.points, doc.tossups], null
@@ -11,9 +12,11 @@ module.exports =
       if doc.type is 'school'
         for team in doc.teams
           if team.id?
-            emit ['teams', to_id(team.name), "#{team.name} team_id:#{team.id}", doc.name, doc.city, doc.small || false], null
+            id = numeric_id(team.id)
+            emit ['teams', to_id(team.name), "#{team.name} team_id:#{id}", doc.name, doc.city, doc.small || false], null
           else
             emit ['teams', to_id(team.name), team.name, doc.name, doc.city, doc.small || false], null
           for player in team.players
             if player.id?
-              emit ['_players', to_id(team.name), player.name], "#{player.name} team_member_id:#{player.id}"
+              id = numeric_id(player.id)
+              emit ['_players', to_id(team.name), player.name], "#{player.name} team_member_id:#{id}"
