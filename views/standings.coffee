@@ -3,8 +3,8 @@ module.exports =
   map: (doc) ->
     if doc.type and doc.type is 'game' and doc.playersEntered
       team1win = (doc.team1.points > doc.team2.points)
-      team1points = (if doc.team1.points is 1 then 0 else doc.team1.points)
-      team2points = (if doc.team2.points is 1 then 0 else doc.team2.points)
+      team1points = (if doc.tossups is 0 then 0 else doc.team1.points)
+      team2points = (if doc.tossups is 0 then 0 else doc.team2.points)
       bonuses1 = 0
       bonuses2 = 0
       bonuspoints1 = doc.team1.points

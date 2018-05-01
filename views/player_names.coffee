@@ -3,7 +3,7 @@ module.exports =
     emit_names = (team) ->
       index = 1
       for player in team.players
-        emit [team.name, player.name], index
+        emit [team.name + " " + team.id, player.name], index
         index += 1
     if doc.type
       if doc.type is 'school'

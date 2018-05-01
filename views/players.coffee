@@ -17,7 +17,7 @@ module.exports =
         i++
 
     output[1] = output[10] * output[2] / output[0]
-    output[7] = 20 * output[6] / output[2]
+    output[7] = (if output[2] is 0 then 0 else 20 * output[6] / output[2])
     output[8] = (if output[5] is 0 then 0 else (output[3] + output[4]) / output[5])
-    output[9] = 20 * output[5] / output[2]
+    output[9] = (if output[2] is 0 then 0 else 20 * output[5] / output[2])
     output
